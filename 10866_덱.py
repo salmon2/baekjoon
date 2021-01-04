@@ -1,6 +1,5 @@
 from sys import stdin
 q = []
-f = []
 for i in range(int(stdin.readline())):
     cmd = stdin.readline().split(' ')
     if cmd[0][-1] == '\n':
