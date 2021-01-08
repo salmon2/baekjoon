@@ -1,47 +1,27 @@
+a = input()
+stack = [] #스택
+res='' #출력
 
-stack = []
-stack2 = []
-number = []
-
-q = input()
-sen = []
-sen.append('(')
-
-for c in q:
-    if c == '+' or c == '-' or c == '*' or c =='/':
-        sen.append(')')
-        sen.append(c)
-        sen.append('(')
+for x in a:
+    if x.isalpha(): #피연산자인지 아닌지 확인
+        res+=x
     else:
-        sen.append(c)
-sen.append(')')
+        if x == '(':
+            stack.append(x)
+        elif x == '*' or x =='/':
+            while stack and (stack[-1]=='*' or stack[-1]=='/'):
+                res+=stack.pop()
+            stack.append(x)
+        elif x == '+' or x == '-':
+            while stack and stack[-1] != '(':
+                res += stack.pop()
+            stack.append(x)
+        elif x == ')':
+            while stack and stack[-1] != '(':
+                res+=stack.pop()
+            stack.pop()
 
-print(sen)
-
-for c in q:
-    if c == '(' or c == '+' or c == '*' or c == '/' or c == '-':
-        stack2.append(c)
-    elif c == ')':
-        while True:
-            a = stack2.pop()
-            if a == '(':
-                break
-            else:
-                stack.append(a)
-    else:
-        stack.append(c)
-
-while stack2:
-    stack.append(stack2.pop())
-    
-for c in stack:
-    print(c)
-
-
-
-
-
-
-
-
-
+#스택안에 남아있는 값들 pop            
+while stack:
+    res += stack.pop()
+print(res)
